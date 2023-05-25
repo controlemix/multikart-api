@@ -1,4 +1,4 @@
-### Rest API For MarketShop
+### Rest API For Multikart Shop
 
 ## Description
 For use in admin dashboard and shop 
