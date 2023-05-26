@@ -24,7 +24,7 @@ import {
 @ApiTags("navbars")
 @Controller("api/navbars")
 export class NavbarsController {
-  constructor(private readonly navbarsService: NavbarsService) {}
+  constructor(private readonly navbarsService: NavbarsService) { }
 
   @Post()
   @ApiParam({

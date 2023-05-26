@@ -27,8 +27,7 @@ export interface navbarsAttributes {
 @Table({ tableName: "Navbars", timestamps: true })
 export class Navbar
   extends Model<navbarsAttributes, navbarsAttributes>
-  implements navbarsAttributes
-{
+  implements navbarsAttributes {
   @Column({ primaryKey: true, type: DataType.INTEGER, autoIncrement: true })
   @Index({ name: "PRIMARY", using: "BTREE", order: "ASC", unique: true })
   id!: number;
@@ -48,7 +47,7 @@ export class Navbar
   @Column({ allowNull: true, type: DataType.BOOLEAN, defaultValue: true })
   @ApiProperty({ example: 1, description: 'Set is show subItem in NavBar' })
   activeItem?: boolean;
-  
+
   @Column({ allowNull: true, type: DataType.BOOLEAN, defaultValue: true })
   @ApiProperty({ example: 1, description: 'Set is show child for subItem in NavBar' })
   activeChildItem?: boolean;

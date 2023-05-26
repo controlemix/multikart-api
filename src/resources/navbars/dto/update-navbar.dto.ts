@@ -1,8 +1,7 @@
 import { PartialType } from "@nestjs/mapped-types";
 import { CreateNavbarDto } from "./create-navbar.dto";
 
-// export class UpdateNavbarDto  {
-  export class UpdateNavbarDto extends PartialType(CreateNavbarDto) {
+export class UpdateNavbarDto extends PartialType(CreateNavbarDto) {
   active?: boolean;
   openMobileNav?: boolean;
   subNav?: boolean;

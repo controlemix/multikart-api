@@ -2,13 +2,14 @@ import { Injectable, Inject } from "@nestjs/common";
 import { CreateNavbarDto } from "./dto/create-navbar.dto";
 import { UpdateNavbarDto } from "./dto/update-navbar.dto";
 import { Navbar } from "./entities/navbar.entity";
+import { NAVBARS_REPOSITORY } from '../../core/constants';
 
 @Injectable()
 export class NavbarsService {
   constructor(
-    @Inject("NAVBARS_REPOSITORY")
+    @Inject(NAVBARS_REPOSITORY)
     private navbarsRepository: typeof Navbar
-  ) {}
+  ) { }
 
   create(createNavbarDto: CreateNavbarDto): Promise<Navbar> {
     return this.navbarsRepository.create({
