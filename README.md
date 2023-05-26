@@ -1,9 +1,8 @@
-### Rest API For Multikart Shop
+# Rest API For Multikart
 
-## Description
-For use in admin dashboard and shop 
+For use in admin dashboard and shop frontend
 
-## Features
+### Features
 - Sequelize ORM
 - MySQL Database
 - JWT Token
@@ -11,31 +10,34 @@ For use in admin dashboard and shop
 - Nest
 - Rest API
 
-# Installation
+## Node Engine
+- Version >= 18
 
-`npm install`
+## Before Running
 
-# Running
+This example requires MySQL Database running.  If using a local or docker MySQL database, see `database.providers.ts` for credentials, and make sure there are matching credentials in the database and the source code.
 
-This example requires docker or a local MySQL installation.  If using a local MySQL database, see `app.module.ts` for credentials, and make sure there are matching credentials in the database and the source code.
+## Docker
 
-# Docker
-
-There is a `docker-compose.yml` file for starting Docker.
+There is a `docker-compose.yml` file for services Docker.
 
 `docker-compose up`
 
-After running the sample, you can stop the Docker container with
+After running, you can stop the Docker container with
 
 `docker-compose down`
 
-# Run the sample
+## Installation
 
-Then, run Nest as usual:
+`npm install`
 
-`npm run start`
+## Run the API project
 
-## License
+Then, run Nest as usual for local and watch:
+
+`npm run start:dev`
+
+### License
 
 Copyright 2022-2023 © The ControleMix Authors. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our Trademark Usage page: https://www.linuxfoundation.org/trademark-usage
 
