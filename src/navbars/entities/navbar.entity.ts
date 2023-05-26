@@ -8,21 +8,23 @@ import {
   ForeignKey
 } from "sequelize-typescript";
 
+import { ApiProperty } from '@nestjs/swagger';
+
 export interface navbarsAttributes {
   id: number;
-  active?: number;
-  openMobileNav?: number;
-  subNav?: number;
-  activeItem?: string;
-  activeChildItem?: string;
-  activeMegaChild?: string;
-  leftSideBarVal?: number;
+  active?: boolean;
+  openMobileNav?: boolean;
+  subNav?: boolean;
+  activeItem?: boolean;
+  activeChildItem?: boolean;
+  activeMegaChild?: boolean;
+  leftSideBarVal?: boolean;
   title?: string;
   type?: string;
   badgeValue?: string;
 }
 
-@Table({ tableName: "Navbars", timestamps: false })
+@Table({ tableName: "Navbars", timestamps: true })
 export class Navbar
   extends Model<navbarsAttributes, navbarsAttributes>
   implements navbarsAttributes
@@ -30,24 +32,44 @@ export class Navbar
   @Column({ primaryKey: true, type: DataType.INTEGER, autoIncrement: true })
   @Index({ name: "PRIMARY", using: "BTREE", order: "ASC", unique: true })
   id!: number;
-  @Column({ allowNull: true, type: DataType.TINYINT })
-  active?: number;
-  @Column({ allowNull: true, type: DataType.TINYINT })
-  openMobileNav?: number;
-  @Column({ allowNull: true, type: DataType.TINYINT })
-  subNav?: number;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN, defaultValue: true })
+  @ApiProperty({ example: 1, description: 'Set is show in shop' })
+  active?: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN, defaultValue: true })
+  @ApiProperty({ example: 1, description: 'Set is show NavBar for mobile in shop' })
+  openMobileNav?: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN, defaultValue: true })
+  @ApiProperty({ example: 1, description: 'Set subItem in NavBar' })
+  subNav?: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN, defaultValue: true })
+  @ApiProperty({ example: 1, description: 'Set is show subItem in NavBar' })
+  activeItem?: boolean;
+  
+  @Column({ allowNull: true, type: DataType.BOOLEAN, defaultValue: true })
+  @ApiProperty({ example: 1, description: 'Set is show child for subItem in NavBar' })
+  activeChildItem?: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN, defaultValue: true })
+  @ApiProperty({ example: 1, description: 'Set is show mega item child for subItem in NavBar' })
+  activeMegaChild?: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN, defaultValue: false })
+  @ApiProperty({ example: 1, description: 'Set show left bar' })
+  leftSideBarVal?: boolean;
+
   @Column({ allowNull: true, type: DataType.STRING })
-  activeItem?: string;
-  @Column({ allowNull: true, type: DataType.STRING })
-  activeChildItem?: string;
-  @Column({ allowNull: true, type: DataType.STRING })
-  activeMegaChild?: string;
-  @Column({ allowNull: true, type: DataType.TINYINT })
-  leftSideBarVal?: number;
-  @Column({ allowNull: true, type: DataType.STRING })
+  @ApiProperty({ example: "Home", description: 'Name for item' })
   title?: string;
-  @Column({ allowNull: true, type: DataType.STRING })
+
+  @Column({ allowNull: false, type: DataType.STRING })
+  @ApiProperty({ example: "sub", description: 'Type item' })
   type?: string;
-  @Column({ allowNull: true, type: DataType.STRING })
+
+  @Column({ allowNull: true, type: DataType.STRING, defaultValue: '' })
+  @ApiProperty({ example: "new", description: 'Name for item badge' })
   badgeValue?: string;
 }

@@ -7,7 +7,6 @@ import {
   Param,
   Delete
 } from "@nestjs/common";
-import { ApiProperty } from "@nestjs/swagger";
 
 import { CreateNavbarDto } from "./dto/create-navbar.dto";
 import { UpdateNavbarDto } from "./dto/update-navbar.dto";
@@ -37,7 +36,7 @@ export class NavbarsController {
   })
   @ApiOperation({ summary: "Create navbar" })
   @ApiResponse({ status: 403, description: "Forbidden." })
-  async create(@Body() createNavbarDto: CreateNavbarDto): Promise<Navbar> {
+  create(@Body() createNavbarDto: CreateNavbarDto): Promise<Navbar> {
     return this.navbarsService.create(createNavbarDto);
   }
 

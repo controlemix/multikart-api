@@ -39,6 +39,7 @@ export class NavbarsService {
 
   update(id: number, updateNavbarDto: UpdateNavbarDto) {
     return this.navbarsRepository.upsert({
+      id,
       active: updateNavbarDto.active,
       openMobileNav: updateNavbarDto.openMobileNav,
       subNav: updateNavbarDto.subNav,
