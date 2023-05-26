@@ -33,34 +33,34 @@ export class Navbar
   id!: number;
 
   @Column({ allowNull: true, type: DataType.BOOLEAN, defaultValue: true })
-  @ApiProperty({ example: 1, description: 'Set is show in shop' })
+  @ApiProperty({ example: true, description: 'Set is show in shop' })
   active?: boolean;
 
   @Column({ allowNull: true, type: DataType.BOOLEAN, defaultValue: true })
-  @ApiProperty({ example: 1, description: 'Set is show NavBar for mobile in shop' })
+  @ApiProperty({ example: true, description: 'Set is show NavBar for mobile in shop' })
   openMobileNav?: boolean;
 
   @Column({ allowNull: true, type: DataType.BOOLEAN, defaultValue: true })
-  @ApiProperty({ example: 1, description: 'Set subItem in NavBar' })
+  @ApiProperty({ example: true, description: 'Set subItem in NavBar' })
   subNav?: boolean;
 
   @Column({ allowNull: true, type: DataType.BOOLEAN, defaultValue: true })
-  @ApiProperty({ example: 1, description: 'Set is show subItem in NavBar' })
+  @ApiProperty({ example: true, description: 'Set is show subItem in NavBar' })
   activeItem?: boolean;
 
   @Column({ allowNull: true, type: DataType.BOOLEAN, defaultValue: true })
-  @ApiProperty({ example: 1, description: 'Set is show child for subItem in NavBar' })
+  @ApiProperty({ example: true, description: 'Set is show child for subItem in NavBar' })
   activeChildItem?: boolean;
 
   @Column({ allowNull: true, type: DataType.BOOLEAN, defaultValue: true })
-  @ApiProperty({ example: 1, description: 'Set is show mega item child for subItem in NavBar' })
+  @ApiProperty({ example: true, description: 'Set is show mega item child for subItem in NavBar' })
   activeMegaChild?: boolean;
 
   @Column({ allowNull: true, type: DataType.BOOLEAN, defaultValue: false })
-  @ApiProperty({ example: 1, description: 'Set show left bar' })
+  @ApiProperty({ example: false, description: 'Set show left bar' })
   leftSideBarVal?: boolean;
 
-  @Column({ allowNull: true, type: DataType.STRING })
+  @Column({ allowNull: false, type: DataType.STRING })
   @ApiProperty({ example: "Home", description: 'Name for item' })
   title?: string;
 

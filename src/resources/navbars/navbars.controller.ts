@@ -34,8 +34,11 @@ export class NavbarsController {
     example: 1,
     required: true
   })
-  @ApiOperation({ summary: "Create navbar" })
-  @ApiResponse({ status: 403, description: "Forbidden." })
+  @ApiOperation({ summary: "Create NavBar" })
+  @ApiResponse({ status: 403, description: "Forbidden request forbidden by administrative rules." })
+  @ApiResponse({ status: 201, description: "Created success the request has succeeded." })
+  @ApiResponse({ status: 404, description: "The requested resource is not found." })
+  @ApiResponse({ status: 401, description: "Unauthorized access is denied due to invalid credentials." })
   create(@Body() createNavbarDto: CreateNavbarDto): Promise<Navbar> {
     return this.navbarsService.create(createNavbarDto);
   }

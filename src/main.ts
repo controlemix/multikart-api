@@ -5,9 +5,9 @@ import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const options = new DocumentBuilder()
-    .setTitle("LojaMix API")
-    .setDescription("The MaketShop API")
-    .setVersion("1.0")
+    .setTitle("Multikart Rest API")
+    .setDescription("For the Admin and Shop")
+    .setVersion("1.0.0-alpha")
     .addTag("users", "navbars")
     .addBearerAuth()
     .build();
