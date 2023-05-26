@@ -1,12 +1,4 @@
-export class CreateNavbarDto {
-  active?: boolean;
-  openMobileNav?: boolean;
-  subNav?: boolean;
-  activeItem?: boolean;
-  activeChildItem?: boolean;
-  activeMegaChild?: boolean;
-  leftSideBarVal?: boolean;
-  title?: string;
-  type?: string;
-  badgeValue?: string;
-}
+import { PartialType } from "@nestjs/mapped-types";
+import { Navbar } from "./../entities/navbar.entity";
+
+export class CreateNavbarDto extends PartialType(Navbar) {}

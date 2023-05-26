@@ -1,13 +1,6 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete
-} from "@nestjs/common";
+import { Controller, Get, Post, Put, Delete, Param, Body, NotFoundException, UseGuards, Request, Patch } from '@nestjs/common';
 
+import { AuthGuard } from '@nestjs/passport';
 import { CreateNavbarDto } from "./dto/create-navbar.dto";
 import { UpdateNavbarDto } from "./dto/update-navbar.dto";
 import { NavbarsService } from "./navbars.service";
@@ -22,7 +15,7 @@ import {
 } from "@nestjs/swagger";
 
 @ApiTags("navbars")
-@Controller("api/navbars")
+@Controller("navbars")
 export class NavbarsController {
   constructor(private readonly navbarsService: NavbarsService) { }
 
@@ -43,6 +36,7 @@ export class NavbarsController {
     return this.navbarsService.create(createNavbarDto);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get()
   findAll(): Promise<Navbar[]> {
     return this.navbarsService.findAll();

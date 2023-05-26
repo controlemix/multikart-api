@@ -10,7 +10,7 @@ import {
 
 import { ApiProperty } from '@nestjs/swagger';
 
-export interface navbarsAttributes {
+export interface NavbarsDtoAttributes {
   id: number;
   active?: boolean;
   openMobileNav?: boolean;
@@ -24,10 +24,10 @@ export interface navbarsAttributes {
   badgeValue?: string;
 }
 
-@Table({ tableName: "Navbars", timestamps: true })
+@Table({ tableName: "navbars", timestamps: true })
 export class Navbar
-  extends Model<navbarsAttributes, navbarsAttributes>
-  implements navbarsAttributes {
+  extends Model<NavbarsDtoAttributes, NavbarsDtoAttributes>
+  implements NavbarsDtoAttributes {
   @Column({ primaryKey: true, type: DataType.INTEGER, autoIncrement: true })
   @Index({ name: "PRIMARY", using: "BTREE", order: "ASC", unique: true })
   id!: number;
