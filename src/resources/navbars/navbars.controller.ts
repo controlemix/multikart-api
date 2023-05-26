@@ -7,7 +7,6 @@ import {
   Param,
   Delete
 } from "@nestjs/common";
-import { ApiProperty } from "@nestjs/swagger";
 
 import { CreateNavbarDto } from "./dto/create-navbar.dto";
 import { UpdateNavbarDto } from "./dto/update-navbar.dto";
@@ -25,7 +24,7 @@ import {
 @ApiTags("navbars")
 @Controller("api/navbars")
 export class NavbarsController {
-  constructor(private readonly navbarsService: NavbarsService) {}
+  constructor(private readonly navbarsService: NavbarsService) { }
 
   @Post()
   @ApiParam({
@@ -35,9 +34,12 @@ export class NavbarsController {
     example: 1,
     required: true
   })
-  @ApiOperation({ summary: "Create navbar" })
-  @ApiResponse({ status: 403, description: "Forbidden." })
-  async create(@Body() createNavbarDto: CreateNavbarDto): Promise<Navbar> {
+  @ApiOperation({ summary: "Create NavBar" })
+  @ApiResponse({ status: 403, description: "Forbidden request forbidden by administrative rules." })
+  @ApiResponse({ status: 201, description: "Created success the request has succeeded." })
+  @ApiResponse({ status: 404, description: "The requested resource is not found." })
+  @ApiResponse({ status: 401, description: "Unauthorized access is denied due to invalid credentials." })
+  create(@Body() createNavbarDto: CreateNavbarDto): Promise<Navbar> {
     return this.navbarsService.create(createNavbarDto);
   }
 

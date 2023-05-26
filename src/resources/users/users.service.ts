@@ -1,13 +1,14 @@
 import { Injectable, Inject } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { User } from "./user.entity";
+import { USERS_REPOSITORY } from '../../core/constants';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @Inject("USERS_REPOSITORY")
+    @Inject(USERS_REPOSITORY)
     private usersRepository: typeof User
-  ) {}
+  ) { }
 
   create(createUserDto: CreateUserDto): Promise<User> {
     return this.usersRepository.create({
