@@ -1,35 +1,10 @@
-import {
-  Model,
-  Table,
-  Column,
-  DataType,
-  Index,
-  Sequelize,
-  ForeignKey
-} from "sequelize-typescript";
-
+import { Model, Table, Column, DataType, Index, Sequelize, ForeignKey } from "sequelize-typescript";
 import { ApiProperty } from '@nestjs/swagger';
 
-export interface NavbarsDtoAttributes {
-  id: number;
-  active?: boolean;
-  openMobileNav?: boolean;
-  subNav?: boolean;
-  activeItem?: boolean;
-  activeChildItem?: boolean;
-  activeMegaChild?: boolean;
-  leftSideBarVal?: boolean;
-  title?: string;
-  type?: string;
-  badgeValue?: string;
-}
-
 @Table({ tableName: "navbars", timestamps: true })
-export class Navbar
-  extends Model<NavbarsDtoAttributes, NavbarsDtoAttributes>
-  implements NavbarsDtoAttributes {
+export class Navbar extends Model {
+
   @Column({ primaryKey: true, type: DataType.INTEGER, autoIncrement: true })
-  @Index({ name: "PRIMARY", using: "BTREE", order: "ASC", unique: true })
   id!: number;
 
   @Column({ allowNull: true, type: DataType.BOOLEAN, defaultValue: true })

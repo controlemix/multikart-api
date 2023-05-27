@@ -10,14 +10,16 @@ async function bootstrap() {
     .setTitle("Multikart Rest API")
     .setDescription("For the Admin and Shop")
     .setVersion("1.0.0-alpha")
-    .addTag("users", "navbars")
+    .addTag("users", "Users")
+    .addTag("navbars", "NavBar")
+    .addTag("categories", "Category")
     .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup("api", app, document);
   app.useGlobalPipes(new ValidateInputPipe());
-  await app.listen(3000);
+  await app.listen(4000);
   console.log(`Application is running on: ${await app.getUrl()}`);
 }
 
