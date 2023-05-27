@@ -4,6 +4,7 @@ import { SEQUELIZE, DEVELOPMENT, TEST, PRODUCTION } from "../constants";
 import { databaseConfigMySQL, databaseConfigSQLite } from "./database.config";
 import { User } from "../../resources/users/user.entity";
 import { Navbar } from "../../resources/navbars/entities/navbar.entity";
+import { Category } from "../../resources/categories/entities/category.entity";
 
 export const databaseProviders = [
   {
@@ -40,7 +41,7 @@ export const databaseProviders = [
         }
       }
       const sequelize = new Sequelize(config);
-      sequelize.addModels([User, Navbar]);
+      sequelize.addModels([User, Navbar, Category]);
       await sequelize.sync();
       return sequelize;
     }

@@ -4,9 +4,8 @@ import { ApiProperty } from '@nestjs/swagger';
 @Table({ tableName: "navbars", timestamps: true })
 export class Navbar extends Model {
 
-  // @Column({ primaryKey: true, type: DataType.INTEGER, autoIncrement: true })
-  // @Index({ name: "PRIMARY", using: "BTREE", order: "ASC", unique: true })
-  // id!: number;
+  @Column({ primaryKey: true, type: DataType.INTEGER, autoIncrement: true })
+  id!: number;
 
   @Column({ allowNull: true, type: DataType.BOOLEAN, defaultValue: true })
   @ApiProperty({ example: true, description: 'Set is show in shop' })

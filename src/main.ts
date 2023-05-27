@@ -10,7 +10,9 @@ async function bootstrap() {
     .setTitle("Multikart Rest API")
     .setDescription("For the Admin and Shop")
     .setVersion("1.0.0-alpha")
-    .addTag("users", "navbars")
+    .addTag("users", "Users")
+    .addTag("navbars", "NavBar")
+    .addTag("categories", "Category")
     .addBearerAuth()
     .build();
 
