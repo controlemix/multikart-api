@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Put, Delete, Param, Body, NotFoundException, UseGuards, Request, Patch } from '@nestjs/common';
-
+import Menu from "../../core/data/menu.json";
 import { AuthGuard } from '@nestjs/passport';
 import { CreateNavbarDto } from "./dto/create-navbar.dto";
 import { UpdateNavbarDto } from "./dto/update-navbar.dto";
@@ -36,10 +36,14 @@ export class NavbarsController {
     return this.navbarsService.create(createNavbarDto);
   }
 
-  @UseGuards(AuthGuard('jwt'))
+  // @UseGuards(AuthGuard('jwt'))
+  // @Get()
+  // findAll(): Promise<Navbar[]> {
+  //   return this.navbarsService.findAll();
+  // }
   @Get()
-  findAll(): Promise<Navbar[]> {
-    return this.navbarsService.findAll();
+  findAll(){
+    return Menu.data;
   }
 
   @Get(":id")
