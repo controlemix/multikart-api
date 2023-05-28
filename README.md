@@ -5,17 +5,21 @@ For use in admin dashboard and shop frontend
 ### Features
 - Sequelize ORM
 - MySQL Database
-- JWT Token
-- Swagger
-- Nest
-- Rest API
+- SQLite Database
+- JWT Token Passport Strategy
+- Swagger in Route: /api 
+- Nest Rest API
+- Docker for MySQL Database
 
 ## Node Engine
 - Version >= 18
 
-## Before Running
+## Postman Collections
+- https://www.postman.com/pobsro/workspace/marketshop-api/collection/1225563-bcc65031-632a-4990-b8fd-40d798d1720f?action=share&creator=1225563
 
-This example requires MySQL Database running.  If using a local or docker MySQL database, see `database.providers.ts` for credentials, and make sure there are matching credentials in the database and the source code.
+## Before Running Width MySQL
+
+This example requires MySQL Database running.  If using a local or docker MySQL database, see `.env.sample` for credentials, and make sure there are matching credentials in the database and the source code.
 
 ## Docker
 

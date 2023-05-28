@@ -1,11 +1,5 @@
 import { IsNotEmpty, MinLength, IsEmail, IsEnum } from "class-validator";
 
-export enum Color {
-  YELLOW = 'yellow',
-  GRAY = 'gray',
-  BLACK = 'black',
-}
-
 export interface CategoryDtoAttributes {
   id?: number;
   sku: string;
@@ -32,22 +26,22 @@ export class CategoryDto implements CategoryDtoAttributes {
   id: number;
   sku: string;
 
-  @IsNotEmpty()
-  @MinLength(3)
+  // @IsNotEmpty()
+  // @MinLength(3)
   category: string;
 
   images: string;
 
-  @IsNotEmpty()
-  @MinLength(72)
+  // @IsNotEmpty()
+  // @MinLength(72)
   shortDescription: string;
 
-  @IsNotEmpty()
-  @MinLength(120)
+  // @IsNotEmpty()
+  // @MinLength(120)
   description: string;
 
-  @IsNotEmpty()
-  @MinLength(120)
+  // @IsNotEmpty()
+  // @MinLength(120)
   details: string;
 
   salePrice: number;
@@ -62,8 +56,8 @@ export class CategoryDto implements CategoryDtoAttributes {
   stock: number;
   status: boolean;
 
-  @IsNotEmpty()
-  @MinLength(3)
+  // @IsNotEmpty()
+  // @MinLength(3)
   name: string;
 
   quantity: number;
