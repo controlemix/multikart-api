@@ -7,6 +7,7 @@ import { UsersModule } from './resources/users/users.module';
 import { AuthModule } from './resources/auth/auth.module';
 import { NavbarsModule } from "./resources/navbars/navbars.module";
 import { CategoriesModule } from './resources/categories/categories.module';
+import { MenusModule } from './resources/menus/menus.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { CategoriesModule } from './resources/categories/categories.module';
     AuthModule,
     NavbarsModule,
     CategoriesModule,
+    MenusModule,
   ],
   controllers: [AppController],
   providers: [AppService],

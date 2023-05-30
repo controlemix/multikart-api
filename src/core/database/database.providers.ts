@@ -5,6 +5,9 @@ import { databaseConfigMySQL, databaseConfigSQLite } from "./database.config";
 import { User } from "../../resources/users/user.entity";
 import { Navbar } from "../../resources/navbars/entities/navbar.entity";
 import { Category } from "../../resources/categories/entities/category.entity";
+import { Menu } from "../../resources/menus/entities/menu.entity";
+import { MenuChildren } from "../../resources/menus/entities/menu.entity";
+// import { MenuSubChildren } from "../../resources/menus/entities/menu.entity";
 
 export const databaseProviders = [
   {
@@ -41,7 +44,7 @@ export const databaseProviders = [
         }
       }
       const sequelize = new Sequelize(config);
-      sequelize.addModels([User, Navbar, Category]);
+      sequelize.addModels([User, Navbar, Category, Menu, MenuChildren]);
       await sequelize.sync();
       return sequelize;
     }

@@ -37,13 +37,16 @@ export const databaseConfigSQLite: ISQLiteDatabaseConfig = {
   development: {
     dialect: process.env.DB_DIALECT,
     storage: process.env.DB_STORAGE_DEVELOPMENT,
+    // repositoryMode: true,    
   },
   test: {
     dialect: process.env.DB_DIALECT,
     storage: process.env.DB_STORAGE_TEST,
+    // repositoryMode: true,
   },
   production: {
     dialect: process.env.DB_DIALECT,
     storage: process.env.DB_STORAGE_PRODUCTION,
+    // repositoryMode: true,
   },
 };
