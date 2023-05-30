@@ -6,7 +6,7 @@ import { User } from "../../resources/users/user.entity";
 import { Navbar } from "../../resources/navbars/entities/navbar.entity";
 import { Category } from "../../resources/categories/entities/category.entity";
 import { Menu } from "../../resources/menus/entities/menu.entity";
-import { MenuChildren } from "../../resources/menus/entities/menu.entity";
+import { MenuChildren } from "../../resources/menus/entities/menu-children.entity";
 // import { MenuSubChildren } from "../../resources/menus/entities/menu.entity";
 
 export const databaseProviders = [

@@ -13,8 +13,8 @@ async function bootstrap() {
     .addTag("users", "Users")
     .addTag("navbars", "NavBar")
     .addTag("categories", "Category")
-    .addTag("menu", "Menu")
-    .addTag("menu_children", "Menu Children")
+    .addTag("menus", "Menu")
+    .addTag("menu-childrens", "Children in Menu or Sub Menu")
     .addBearerAuth()
     .build();
 

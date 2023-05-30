@@ -1,49 +1,119 @@
 import { Injectable, Inject } from '@nestjs/common';
-import {
-  MENUS_CHILDREN_REPOSITORY,
-  MENUS_REPOSITORY,
-} from '../../core/constants';
+import { MENUS_REPOSITORY } from '../../core/constants';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
-import { Menu, MenuChildren } from './entities/menu.entity';
+import { Menu } from './entities/menu.entity';
+import { MenuChildren } from './entities/menu-children.entity';
 
 @Injectable()
 export class MenusService {
-  constructor(
-    @Inject(MENUS_REPOSITORY) private menusRepository: typeof Menu,
-    @Inject(MENUS_CHILDREN_REPOSITORY)
-    private menuChildrensRepository: typeof MenuChildren,
-  ) {}
+  constructor(@Inject(MENUS_REPOSITORY) private menusRepository: typeof Menu) {}
 
   async create(createMenuDto: CreateMenuDto): Promise<CreateMenuDto> {
-    return await this.menusRepository.create({ ...createMenuDto });
-  }
-
-  async createChildren(createMenuDto: CreateMenuDto): Promise<CreateMenuDto> {
-    return await this.menuChildrensRepository.create({ ...createMenuDto });
+    try {
+      const count = await Menu.count();
+      const order =
+        createMenuDto?.order && createMenuDto?.order > 0
+          ? createMenuDto?.order
+          : count + 1;
+      return await this.menusRepository.create({ ...createMenuDto, order });
+    } catch (error) {
+      throw error;
+    }
   }
 
   async findAll(): Promise<Menu[]> {
-    return await this.menusRepository.findAll({ include: [MenuChildren] });
+    try {
+      return await this.menusRepository.findAll({
+        include: [{ model: MenuChildren, as: 'children' }],
+        order: [
+          [{ model: MenuChildren, as: 'children' }, 'order', 'ASC'],
+          ['order', 'ASC'],
+        ],
+      });
+    } catch (error) {
+      throw error;
+    }
   }
 
-  async findChildrenAll(): Promise<MenuChildren[]> {
-    return await this.menuChildrensRepository.findAll();
+  async findAllActive(): Promise<Menu[]> {
+    try {
+      return await this.menusRepository.findAll({
+        // where: [
+        //   // { '$Menu.active$': true },
+        //   { '$children.active$': true },
+        // ],
+        include: [
+          {
+            model: MenuChildren,
+            as: 'children', 
+            // where: { '$children.active$': true },
+          },
+        ],
+        order: [
+          ['order', 'ASC'],
+          [{ model: MenuChildren, as: 'children' }, 'order', 'ASC'],
+        ],
+      });
+    } catch (error) {
+      throw error;
+    }
   }
 
   async findOne(id: string): Promise<Menu> {
-    return await this.menusRepository.findByPk(id, { include: [MenuChildren] });
+    try {
+      return await this.menusRepository.findByPk(id, {
+        include: [{ model: MenuChildren, as: 'children' }],
+        order: [
+          [{ model: MenuChildren, as: 'children' }, 'order', 'ASC'],
+          ['order', 'ASC'],
+        ],
+      });
+    } catch (error) {
+      throw error;
+    }
   }
 
-  async findChildrenOne(id: string): Promise<MenuChildren> {
-    return await this.menuChildrensRepository.findByPk(id);
+  async findOneActive(id: string): Promise<Menu> {
+    try {
+      return await this.menusRepository.findByPk(id, {
+        include: [
+          { model: MenuChildren, as: 'children', where: { active: true } },
+        ],
+        order: [
+          [{ model: MenuChildren, as: 'children' }, 'order', 'ASC'],
+          ['order', 'ASC'],
+        ],
+      });
+    } catch (error) {
+      throw error;
+    }
   }
 
-  update(id: number, updateMenuDto: UpdateMenuDto) {
-    return `This action updates a #${id} menu`;
+  async update(
+    id: string,
+    updateMenuDto: UpdateMenuDto,
+  ): Promise<UpdateMenuDto> {
+    try {
+      const menu = await this.menusRepository.findByPk(id);
+      if (!menu) {
+        throw new Error('Menu not found');
+      }
+      return await menu.update({ ...updateMenuDto });
+    } catch (error) {
+      throw error;
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} menu`;
+  async remove(id: string) {
+    try {
+      const menu = await this.menusRepository.findByPk(id);
+      if (!menu) {
+        throw new Error('Menu not found');
+      }
+      return await menu.destroy();
+    } catch (error) {
+      throw error;
+    }
   }
 }

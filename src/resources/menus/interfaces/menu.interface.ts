@@ -3,13 +3,14 @@ import { MenuChildrenDto } from '../dto/menu-children.dto';
 
 export interface IMenuDtoAttributes {
   id?: number;
-  title: string;
-  type: string;
+  title?: string;
+  type?: string;
   megaMenu?: boolean;
-  path: string;
+  path?: string;
   badgeValue?: string;
-  active: boolean;
-  navBar: boolean;
-  sideBar: boolean;
+  active?: boolean;
+  navBar?: boolean;
+  sideBar?: boolean;
+  order?: number;
   children?: MenuChildrenDto[];
 }

@@ -1,8 +1,9 @@
 export interface IMenuChildrenDtoAttributes {
   id?: number;
-  idParent?: number;
-  title: string;
-  type: string;
-  path: string;
-  active: boolean;  
+  parentId?: number;
+  title?: string;
+  type?: string;
+  path?: string;
+  active?: boolean;  
+  order?: number;
 }
