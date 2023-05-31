@@ -7,7 +7,6 @@ export class User extends Model {
 
   @Column({ primaryKey: true, type: DataType.INTEGER, autoIncrement: true })
   id!: number;
-  // @Index({ name: "PRIMARY", using: "BTREE", order: "ASC", unique: true })
 
   @Column({ allowNull: false, type: DataType.STRING })
   @ApiProperty({ example: 'Jhon', description: 'Name for user' })

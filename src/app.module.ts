@@ -5,8 +5,9 @@ import { AppService } from './app.service';
 import { DatabaseModule } from './core/database/database.module';
 import { UsersModule } from './resources/users/users.module';
 import { AuthModule } from './resources/auth/auth.module';
-import { NavbarsModule } from "./resources/navbars/navbars.module";
 import { CategoriesModule } from './resources/categories/categories.module';
+import { MenusModule } from './resources/menus/menus.module';
+import { MenusSelfChildrensModule } from './resources/childrens/menu-self-children/menu-self-childrens.module';
 
 @Module({
   imports: [
@@ -14,8 +15,9 @@ import { CategoriesModule } from './resources/categories/categories.module';
     DatabaseModule,
     UsersModule,
     AuthModule,
-    NavbarsModule,
     CategoriesModule,
+    MenusModule,
+    MenusSelfChildrensModule
   ],
   controllers: [AppController],
   providers: [AppService],

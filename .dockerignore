@@ -1,5 +1,6 @@
 public/uploads
 node_modules/
 dist/
+data/
 package-lock.json
 

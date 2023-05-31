@@ -1,15 +1,9 @@
 import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common";
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags, ApiParam } from "@nestjs/swagger";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { User } from "./user.entity";
 import { UsersService } from "./users.service";
 
-import {
-  ApiBearerAuth,
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-  ApiParam
-} from "@nestjs/swagger";
 
 @ApiTags("users")
 @Controller("users")

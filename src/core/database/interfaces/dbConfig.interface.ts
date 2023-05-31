@@ -11,6 +11,7 @@ export interface IMySQLDatabaseConfigAttributes {
 export interface ISQLiteDatabaseConfigAttributes {
   dialect?: string;
   storage?: string;
+  repositoryMode?: boolean;
 }
 
 export interface IMySQLDatabaseConfig {
