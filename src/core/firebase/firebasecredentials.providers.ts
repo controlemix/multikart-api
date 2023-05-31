@@ -4,6 +4,6 @@ import { FirebaseCredentials } from './dto/firebasecredentials.dto';
 export const firebaseCredentialsProviders = [
   {
     provides: [FIREBASE_CREDENTIALS],
-    useValue: FirebaseCredentials
-  }
+    useValue: FirebaseCredentials,
+  },
 ];

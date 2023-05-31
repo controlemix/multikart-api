@@ -1,6 +1,6 @@
 {
   "name": "multikart-api",
-  "version": "1.0.0-alpha",
+  "version": "1.0.2-alpha",
   "description": "Rest API for Multikart, stacks: Sequelize ORM + MySQL Database + JWT Token + Swagger + Nest + Rest API",
   "license": "MIT",
   "author": "ControleMix Tech Solutions",

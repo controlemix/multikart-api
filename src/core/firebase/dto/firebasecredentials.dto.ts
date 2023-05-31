@@ -1,4 +1,3 @@
-
 import { IFirebaseCredentials } from '../interfaces/firebaseCredentials.interface';
 
 export class FirebaseCredentials implements IFirebaseCredentials {
@@ -9,4 +8,4 @@ export class FirebaseCredentials implements IFirebaseCredentials {
   storageBucket: string;
   messagingSenderId: string;
   appId: string;
-};
+}

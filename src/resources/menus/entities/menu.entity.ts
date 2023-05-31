@@ -47,5 +47,6 @@ export class Menu extends Model<MenuDto, MenuDto> implements IMenuDtoAttributes 
     @ApiProperty({ example: 1, description: 'order for menu' })
     order: number;
 
-    @HasMany(() => MenuChildren) children: MenuChildren[];
+    @HasMany(() => MenuChildren) 
+    children: MenuChildren[];
 }

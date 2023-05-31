@@ -5,6 +5,7 @@ import { MenusChildrenService } from './menus-children.service';
 import { CreateMenuChildrenDto } from './dto/create-menu-children.dto';
 import { MenuChildren } from './entities/menu-children.entity';
 import { UpdateMenuChildrenDto } from './dto/update-menu-children.dto';
+import { MenuSelfChildrenDto } from '../childrens/menu-self-children/dto/menu-self-childrens.dto';
 
 @ApiTags("menu-childrens")
 @Controller('menu-childrens')
@@ -21,7 +22,9 @@ export class MenusChildrenController {
   @ApiResponse({ status: 500, description: "Internal Server Error" })
   async create(@Body() createMenuChildrenDto: CreateMenuChildrenDto, @Response() res: any): Promise<CreateMenuChildrenDto> {
     try {
-      const menuChildren = await this.menusChildrenService.create(createMenuChildrenDto);
+      const menuChildren = await this.menusChildrenService.create(createMenuChildrenDto,
+          
+        );
       return res.status(201).json({
         statusCode: 201,
         status: "OK",
@@ -74,6 +77,36 @@ export class MenusChildrenController {
   findOne(@Param('id') id: string) {
     return this.menusChildrenService.findOne(id);
   }
+
+  @Get('/parent/:id')
+  @ApiParam({ type: MenuChildren, name: "MenuChildren" })
+  @ApiOperation({ summary: "Find children by parent" })
+  @ApiBody({ type: MenuChildren })
+  @ApiResponse({ status: 403, description: "Request forbidden by administrative rules." })
+  @ApiResponse({ status: 201, description: "The request has succeeded." })
+  @ApiResponse({ status: 401, description: "Unauthorized access is denied due to invalid credentials." })
+  @ApiResponse({ status: 500, description: "Internal Server Error" })
+  async findChildrenByParent(@Param('id') id: string, @Response() res: any): Promise<MenuChildren[]> {
+    try {
+      const menuChildren = await this.menusChildrenService.findChildrenByParent(id);
+      return res.status(201).json({
+        statusCode: 201,
+        status: "OK",
+        message: "The request has succeeded.",
+        data: menuChildren
+      });
+    }
+    catch (error) {
+      return res.status(500).json({
+        statusCode: 500,
+        status: "Error",
+        message: error.message,
+        error: "Internal Server Error"
+      });
+    }
+  }
+
+  
 
   @Put(':id')
   @ApiParam({ type: MenuChildren, name: "MenuChildren" })

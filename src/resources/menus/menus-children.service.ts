@@ -4,6 +4,9 @@ import { MENUS_CHILDREN_REPOSITORY } from '../../core/constants';
 import { CreateMenuChildrenDto } from './dto/create-menu-children.dto';
 import { MenuChildren } from './entities/menu-children.entity';
 import { UpdateMenuChildrenDto } from './dto/update-menu-children.dto';
+import { MenuSelfChildren } from '../childrens/menu-self-children/entities/menu-self-childrens.entity';
+import { MenuSelfChildrenDto } from '../childrens/menu-self-children/dto/menu-self-childrens.dto';
+import { MenuChildrenDto } from './dto/menu-children.dto';
 
 @Injectable()
 export class MenusChildrenService {
@@ -14,16 +17,38 @@ export class MenusChildrenService {
       const parentId = createMenuChildrenDto.parentId;
       const count = await MenuChildren.count({ where: { parentId: parentId } });
       const order = (createMenuChildrenDto?.order && createMenuChildrenDto?.order > 0) ? createMenuChildrenDto?.order : count + 1;
-      return await this.menuChildrensRepository.create({ ...createMenuChildrenDto, order });
+      return await this.menuChildrensRepository.create({ ...createMenuChildrenDto, order },
+        
+        
+        {
+          include: [ MenuSelfChildren ]
+        }
+        );
     }
     catch (error) {
       throw error;
     }
   }
 
-  async findAll(): Promise<MenuChildren[]> {
+  async findAll(): Promise<MenuChildrenDto[]> {
     return await this.menuChildrensRepository.findAll(
       {
+        include: [{ model: MenuSelfChildren, as: 'children' }],
+        order: [
+          ['order', 'ASC'],
+        ],
+      }
+    );
+  }
+
+  async findChildrenByParent(id: string): Promise<MenuChildrenDto[]> {
+
+    return await MenuChildren.findAll(
+      {
+        include: [{ model: MenuSelfChildren, as: 'children' }],
+        where: { 
+          parentId: id 
+        },
         order: [
           ['order', 'ASC'],
         ],
@@ -33,8 +58,9 @@ export class MenusChildrenService {
 
 
   async findOne(id: string): Promise<MenuChildren> {
-    return await this.menuChildrensRepository.findByPk(id);
+    return await this.menuChildrensRepository.findByPk(id, {include: [{ model: MenuSelfChildren, as: 'children' }],});
   }
+ 
 
   
   async update(

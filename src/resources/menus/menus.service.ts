@@ -4,10 +4,14 @@ import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
 import { Menu } from './entities/menu.entity';
 import { MenuChildren } from './entities/menu-children.entity';
+import { MenuSelfChildren } from '../childrens/menu-self-children/entities/menu-self-childrens.entity';
 
 @Injectable()
 export class MenusService {
-  constructor(@Inject(MENUS_REPOSITORY) private menusRepository: typeof Menu) {}
+  constructor(
+    @Inject(MENUS_REPOSITORY) private menusRepository: typeof Menu,
+    
+    ) {}
 
   async create(createMenuDto: CreateMenuDto): Promise<CreateMenuDto> {
     try {
@@ -22,15 +26,49 @@ export class MenusService {
     }
   }
 
-  async findAll(): Promise<Menu[]> {
+  async findAll(): Promise<any[]> {
     try {
-      return await this.menusRepository.findAll({
-        include: [{ model: MenuChildren, as: 'children' }],
+
+      const menus = await Menu.findAll({     
+        where: {
+          active: true
+        },   
         order: [
-          [{ model: MenuChildren, as: 'children' }, 'order', 'ASC'],
           ['order', 'ASC'],
         ],
       });
+
+      const menusWidthChildren: any[] =  await Promise.all(menus.map(async (menu) => {
+        const children = await MenuChildren.findAll(
+          {
+            include: [{ model: MenuSelfChildren, as: 'children' }],
+            where: { 
+              parentId: menu.id,
+              active: true
+            },
+            order: [
+              ['order', 'ASC'],
+            ],
+          }
+        
+          )
+        return { ...menu.toJSON(), children };
+      }));
+
+      return menusWidthChildren;
+
+
+
+
+      // return await this.menusRepository.findAll({
+      //   include: [
+      //     { model: MenuChildren, as: 'children' },
+      //   ],
+      //   order: [
+      //     [{ model: MenuChildren, as: 'children' }, 'order', 'ASC'],
+      //     ['order', 'ASC'],
+      //   ],
+      // });
     } catch (error) {
       throw error;
     }

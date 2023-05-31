@@ -4,7 +4,6 @@ import { MenusService } from './menus.service';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
 import { Menu } from './entities/menu.entity';
-import { IMenuDtoAttributes } from './interfaces/menu.interface';
 
 @ApiTags("menus")
 @Controller('menus')
