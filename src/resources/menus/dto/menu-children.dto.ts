@@ -1,5 +1,6 @@
 import { MenuSelfChildrenDto } from 'src/resources/childrens/menu-self-children/dto/menu-self-childrens.dto';
 import { IMenuChildrenDtoAttributes } from '../interfaces/menu-children.interface';
+import { MenuDto } from './menu.dto';
 
 export class MenuChildrenDto implements IMenuChildrenDtoAttributes {
   id?: number;
@@ -11,4 +12,5 @@ export class MenuChildrenDto implements IMenuChildrenDtoAttributes {
   active?: boolean;
   order?: number;
   children?: MenuSelfChildrenDto[];
+  // menu?: MenuDto[];
 }

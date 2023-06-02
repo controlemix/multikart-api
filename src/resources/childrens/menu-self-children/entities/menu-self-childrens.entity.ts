@@ -27,6 +27,10 @@ export class MenuSelfChildren extends Model<MenuSelfChildrenDto, MenuSelfChildre
     @ApiProperty({ example: false, description: 'Set megamenu' })
     megaMenu: boolean;
 
+    @Column({ allowNull: false, type: DataType.STRING, defaultValue: "" })
+    @ApiProperty({ example: "", description: 'Set megamenu img' })
+    megaMenuImg: string;
+
     @Column({ allowNull: false, type: DataType.STRING })
     @ApiProperty({ example: '/shop/fashion', description: 'Route for menu' })
     path: string;

@@ -29,7 +29,7 @@ export class MenusService {
   async findAll(): Promise<any[]> {
     try {
 
-      const menus = await Menu.findAll({     
+      const menus = await Menu.findAll({ 
         where: {
           active: true
         },   

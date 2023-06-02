@@ -7,6 +7,7 @@ import { UpdateMenuChildrenDto } from './dto/update-menu-children.dto';
 import { MenuSelfChildren } from '../childrens/menu-self-children/entities/menu-self-childrens.entity';
 import { MenuSelfChildrenDto } from '../childrens/menu-self-children/dto/menu-self-childrens.dto';
 import { MenuChildrenDto } from './dto/menu-children.dto';
+import { Menu } from './entities/menu.entity';
 
 @Injectable()
 export class MenusChildrenService {
@@ -33,7 +34,10 @@ export class MenusChildrenService {
   async findAll(): Promise<MenuChildrenDto[]> {
     return await this.menuChildrensRepository.findAll(
       {
-        include: [{ model: MenuSelfChildren, as: 'children' }],
+        include: [{ model: MenuSelfChildren, as: 'children' },
+        { model: Menu, as: 'menu' }
+      
+      ],
         order: [
           ['order', 'ASC'],
         ],
@@ -45,7 +49,11 @@ export class MenusChildrenService {
 
     return await MenuChildren.findAll(
       {
-        include: [{ model: MenuSelfChildren, as: 'children' }],
+        include: [{ model: MenuSelfChildren, as: 'children' },
+        { model: Menu, as: 'menu' }    
+
+      
+      ],
         where: { 
           parentId: id 
         },
@@ -58,7 +66,7 @@ export class MenusChildrenService {
 
 
   async findOne(id: string): Promise<MenuChildren> {
-    return await this.menuChildrensRepository.findByPk(id, {include: [{ model: MenuSelfChildren, as: 'children' }],});
+    return await this.menuChildrensRepository.findByPk(id, {include: [{ model: MenuSelfChildren, as: 'children' }, { model: Menu, as: 'menu' }  ],});
   }
  
 

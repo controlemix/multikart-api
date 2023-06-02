@@ -26,6 +26,27 @@ export class MenuChildren extends Model<MenuChildrenDto, MenuChildrenDto> implem
     // @BelongsToMany(() => MenuSelfChildren,{ as: 'childrens', through: 'menu_childrens_ident', foreignKey: 'childrenParentId', otherKey: 'childrenId'})
     // childrens: MenuSelfChildren[];
 
+    @Column({ allowNull: false, type: DataType.BOOLEAN })
+    @ApiProperty({ example: false, description: 'Set megamenu' })
+    megaMenu: boolean;
+
+    @Column({ allowNull: false, type: DataType.STRING, defaultValue: "" })
+    @ApiProperty({ example: "", description: 'Set megamenu img' })
+    megaMenuImg: string;
+
+    @Column({ allowNull: false, type: DataType.STRING })
+    @ApiProperty({ example: 'new', description: 'badge for menu' })
+    badgeValue: string;
+
+  
+    @Column({ allowNull: false, type: DataType.BOOLEAN })
+    @ApiProperty({ example: true, description: 'Set menu in navbar' })
+    navBar: boolean;
+  
+    @Column({ allowNull: false, type: DataType.BOOLEAN })
+    @ApiProperty({ example: true, description: 'Set menu in side menu' })
+    sideBar: boolean;
+
     @Column({ allowNull: false, type: DataType.STRING })
     @ApiProperty({ example: 'Shoes', description: 'Title for menuChildren' })
     title: string;
