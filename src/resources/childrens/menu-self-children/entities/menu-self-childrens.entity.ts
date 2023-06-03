@@ -66,7 +66,10 @@ export class MenuSelfChildren extends Model<MenuSelfChildrenDto, MenuSelfChildre
     @ApiProperty({ example: 1, description: 'Set ForeignKey for MenuChildren' })
     @ForeignKey(() => MenuChildren) 
     @Column childrenParentId!: number;
-    @BelongsTo(() => MenuChildren) menuChildren: MenuChildren;
+    @BelongsTo(() => MenuChildren) menuChildren: MenuChildren;  
+    
+    
+    
 
     // @HasMany(() => MenuChildren) children: MenuChildren[];
 }
