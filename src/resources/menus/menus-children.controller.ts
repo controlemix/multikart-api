@@ -146,6 +146,14 @@ export class MenusChildrenController {
   async remove(@Param('id') id: string, @Response() res: any) {
     try {
       const menuChildren = await this.menusChildrenService.remove(id);
+      if(menuChildren?.error){
+        return res.status(409).json({
+          statusCode: 409,
+          status: "Error",
+          message: menuChildren.message,
+          error: " request could not be processed because of conflict in the request."
+        });
+      }
       return res.status(201).json({
         statusCode: 201,
         status: "OK",

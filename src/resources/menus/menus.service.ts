@@ -30,9 +30,9 @@ export class MenusService {
     try {
 
       const menus = await Menu.findAll({ 
-        where: {
-          active: true
-        },   
+        // where: {
+        //   active: true
+        // },   
         order: [
           ['order', 'ASC'],
         ],
@@ -143,11 +143,18 @@ export class MenusService {
     }
   }
 
-  async remove(id: string) {
+  async remove(id: string): Promise<any> {
     try {
       const menu = await this.menusRepository.findByPk(id);
       if (!menu) {
         throw new Error('Menu not found');
+      }
+      const count = await MenuChildren.count({ where: { parentId: id } });
+      if (count > 0) {
+        return {
+          error: true,
+          message: 'Menu has childrens'          
+        }
       }
       return await menu.destroy();
     } catch (error) {

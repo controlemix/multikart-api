@@ -6,7 +6,7 @@ import { Menu } from "./menu.entity";
 import { MenuSelfChildren } from "src/resources/childrens/menu-self-children/entities/menu-self-childrens.entity";
 
 
-@Table({ tableName: "menu_childrens", timestamps: true })
+@Table({ tableName: "menu_childrens", timestamps: true  })
 export class MenuChildren extends Model<MenuChildrenDto, MenuChildrenDto> implements IMenuChildrenDtoAttributes {
 
     @Column({ primaryKey: true, type: DataType.INTEGER, autoIncrement: true, allowNull: false })
@@ -67,7 +67,7 @@ export class MenuChildren extends Model<MenuChildrenDto, MenuChildrenDto> implem
     @ApiProperty({ example: 1, description: 'order for children' })
     order: number;
 
-    @HasMany(() => MenuSelfChildren) 
+    @HasMany(() => MenuSelfChildren, { onDelete: 'NO ACTION' }) 
     children: MenuSelfChildren[];
 
     // @Column childrenParentId: number;

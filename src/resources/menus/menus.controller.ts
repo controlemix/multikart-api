@@ -163,6 +163,14 @@ export class MenusController {
   async remove(@Param('id') id: string, @Response() res: any) {
     try {
       const menu = await this.menusService.remove(id);
+      if(menu?.error){
+        return res.status(409).json({
+          statusCode: 409,
+          status: "Error",
+          message: menu.message,
+          error: " request could not be processed because of conflict in the request."
+        });
+      }
       return res.status(201).json({
         statusCode: 201,
         status: "OK",

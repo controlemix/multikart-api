@@ -87,11 +87,19 @@ export class MenusChildrenService {
   }
 
 
-  async remove(id: string) {
+  async remove(id: string): Promise<any> {
     try {
       const menuChildren = await this.menuChildrensRepository.findOne({ where: { id } });
+      
       if (!menuChildren) {
         throw new Error('Menu not found');
+      }
+      const count = await MenuSelfChildren.count({ where: { childrenParentId: id } });
+      if (count > 0) {
+        return {
+          error: true,
+          message: 'MenuChildren has childrens'          
+        }
       }
       return await menuChildren.destroy();
     } catch (error) {

@@ -12,7 +12,11 @@ export class MenusSelfChildrensService {
 
   async create(createMenuSelfChildrenDto: CreateMenuSelfChildrenDto): Promise<CreateMenuSelfChildrenDto> {
     try {
-      const count = await MenuSelfChildren.count();
+      const count = await MenuSelfChildren.count({
+        where: {
+          childrenParentId: createMenuSelfChildrenDto.childrenParentId
+        }
+      });
       const order =
       createMenuSelfChildrenDto?.order && createMenuSelfChildrenDto?.order > 0
           ? createMenuSelfChildrenDto?.order
