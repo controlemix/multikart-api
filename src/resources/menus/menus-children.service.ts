@@ -19,12 +19,12 @@ export class MenusChildrenService {
       const count = await MenuChildren.count({ where: { parentId: parentId } });
       const order = (createMenuChildrenDto?.order && createMenuChildrenDto?.order > 0) ? createMenuChildrenDto?.order : count + 1;
       return await this.menuChildrensRepository.create({ ...createMenuChildrenDto, order },
-        
-        
+
+
         {
-          include: [ MenuSelfChildren ]
+          include: [MenuSelfChildren]
         }
-        );
+      );
     }
     catch (error) {
       throw error;
@@ -36,8 +36,8 @@ export class MenusChildrenService {
       {
         include: [{ model: MenuSelfChildren, as: 'children' },
         { model: Menu, as: 'menu' }
-      
-      ],
+
+        ],
         order: [
           ['order', 'ASC'],
         ],
@@ -50,12 +50,12 @@ export class MenusChildrenService {
     return await MenuChildren.findAll(
       {
         include: [{ model: MenuSelfChildren, as: 'children' },
-        { model: Menu, as: 'menu' }    
+        { model: Menu, as: 'menu' }
 
-      
-      ],
-        where: { 
-          parentId: id 
+
+        ],
+        where: {
+          parentId: id
         },
         order: [
           ['order', 'ASC'],
@@ -66,11 +66,11 @@ export class MenusChildrenService {
 
 
   async findOne(id: string): Promise<MenuChildren> {
-    return await this.menuChildrensRepository.findByPk(id, {include: [{ model: MenuSelfChildren, as: 'children' }, { model: Menu, as: 'menu' }  ],});
+    return await this.menuChildrensRepository.findByPk(id, { include: [{ model: MenuSelfChildren, as: 'children' }, { model: Menu, as: 'menu' }], });
   }
- 
 
-  
+
+
   async update(
     id: string,
     updateMenuChildrenDto: UpdateMenuChildrenDto,
@@ -86,11 +86,52 @@ export class MenusChildrenService {
     }
   }
 
+  async updateOrder(
+    listUpdateMenuChildren: any[],
+  ): Promise<UpdateMenuChildrenDto[]> {
+    try {
+      const listUpdated = [];
+      listUpdateMenuChildren.forEach(async (item: any) => {
+        const updateMenuChildrenDto: UpdateMenuChildrenDto = new UpdateMenuChildrenDto({ order: item.order });
+        const id = item.id;
+        const menuChildren = await this.menuChildrensRepository.findOne({ where: { id } })
+        if (!menuChildren) {
+          throw new Error('MenuChildren not found');
+        }
+        await menuChildren.update({ ...updateMenuChildrenDto, order: item.order })
+        listUpdated.push(menuChildren);
+      });
+      return listUpdated;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // async updateOrder(list: any ): Promise<any> {
+  //   try {
+  //     const itemsUpdated = [];
+  //     list.forEach(async (item: any) => {
+  //       const id = item.id;
+  //       const order = item.order;
+  //       const menuChildren = await this.menuChildrensRepository.findOne({ where: { id } });
+  //       if (!menuChildren) {
+  //         throw new Error('MenuChildren not found');
+  //       }        
+  //       const updateResp = await menuChildren.update({ order }, { where: { id } });
+  //       itemsUpdated.push(updateResp);
+  //     });
+  //     return itemsUpdated
+  //   } catch (error) {
+  //     throw error;
+  //   }
+
+  // }
+
 
   async remove(id: string): Promise<any> {
     try {
       const menuChildren = await this.menuChildrensRepository.findOne({ where: { id } });
-      
+
       if (!menuChildren) {
         throw new Error('Menu not found');
       }
@@ -98,7 +139,7 @@ export class MenusChildrenService {
       if (count > 0) {
         return {
           error: true,
-          message: 'MenuChildren has childrens'          
+          message: 'MenuChildren has childrens'
         }
       }
       return await menuChildren.destroy();

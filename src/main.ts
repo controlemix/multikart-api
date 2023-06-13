@@ -12,7 +12,7 @@ async function bootstrap() {
     .setDescription("For the Admin and Shop")
     .setVersion("1.0.2-alpha")
     .addTag("users", "Users")
-    .addTag("categories", "Category")
+    .addTag("category", "Category")
     .addTag("menus", "Menu")
     .addTag("menu-childrens", "Children in Menu or Sub Menu")
     .addTag("menu-self-childrens", "Children in Menu or Sub Menu")

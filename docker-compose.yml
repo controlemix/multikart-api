@@ -9,3 +9,25 @@ services:
       MYSQL_DATABASE: db_dev
     ports:
       - "3306:3306"
+
+  minio-image:
+    container_name: minio-image
+    build:
+      context: ./dockerfiles/dockerfile_minio
+    restart: always
+    working_dir: "/minio-image/storage"
+    volumes:
+      - ./volumes/minio/storage:/minio-image/storage
+      # - ./volumes/minio/mnt-data:/mnt/data
+      # - ./volumes/minio/server:/server
+      # - ./volumes/minio:/minio-image
+      # - ./Storage/minio/storage:/minio-image/storage
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minio-admin
+      MINIO_ROOT_PASSWORD: minio-pass
+      MINIO_ACCESS_KEY: accessKey1
+      MINIO_SECRET_KEY: verySecretKey1
+    command: server /minio-image/storage --console-address :9001      

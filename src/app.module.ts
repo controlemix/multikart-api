@@ -5,7 +5,7 @@ import { AppService } from './app.service';
 import { DatabaseModule } from './core/database/database.module';
 import { UsersModule } from './resources/users/users.module';
 import { AuthModule } from './resources/auth/auth.module';
-import { CategoriesModule } from './resources/categories/categories.module';
+import { CategoryModule } from './resources/stock/modules/category.module';
 import { MenusModule } from './resources/menus/menus.module';
 import { MenusSelfChildrensModule } from './resources/childrens/menu-self-children/menu-self-childrens.module';
 
@@ -15,7 +15,7 @@ import { MenusSelfChildrensModule } from './resources/childrens/menu-self-childr
     DatabaseModule,
     UsersModule,
     AuthModule,
-    CategoriesModule,
+    CategoryModule,
     MenusModule,
     MenusSelfChildrensModule
   ],

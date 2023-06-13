@@ -137,6 +137,31 @@ export class MenusChildrenController {
   }
 
 
+  // @Post('/order')
+  @Put('/order/:id')
+  async updateOrder(@Param('id') id: string, @Body() listUpdateMenuChildren: any[], @Response() res: any) {
+    // async update(@Param('id') id: string, @Body() updateMenuChildrenDto: UpdateMenuChildrenDto, @Response() res: any) {
+  // async updateOrder( @Body() list: any, @Response() res: any) {
+    try {
+      const updateOrder = await this.menusChildrenService.updateOrder(listUpdateMenuChildren);
+      return res.status(201).json({
+        statusCode: 201,
+        status: "OK",
+        message: "The request has succeeded.",
+        data: updateOrder
+      });
+    }
+    catch (error) {
+      return res.status(500).json({
+        statusCode: 500,
+        status: "Error",
+        message: error.message,
+        error: "Internal Server Error"
+      });
+    }
+  }
+
+
   @Delete(':id')
   @ApiOperation({ summary: "Delete children" })
   @ApiResponse({ status: 403, description: "Request forbidden by administrative rules." })
