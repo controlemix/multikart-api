@@ -13,7 +13,7 @@ services:
   minio-image:
     container_name: minio-image
     build:
-      context: ./dockerfiles/dockerfile_minio
+      context: .
     restart: always
     working_dir: "/minio-image/storage"
     volumes:
@@ -26,8 +26,8 @@ services:
       - "9000:9000"
       - "9001:9001"
     environment:
-      MINIO_ROOT_USER: minio-admin
-      MINIO_ROOT_PASSWORD: minio-pass
-      MINIO_ACCESS_KEY: accessKey1
-      MINIO_SECRET_KEY: verySecretKey1
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: miniopass
+      # MINIO_ACCESS_KEY: accessKey1
+      # MINIO_SECRET_KEY: verySecretKey1
     command: server /minio-image/storage --console-address :9001      

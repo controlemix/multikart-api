@@ -8,6 +8,8 @@ import { AuthModule } from './resources/auth/auth.module';
 import { CategoryModule } from './resources/stock/modules/category.module';
 import { MenusModule } from './resources/menus/menus.module';
 import { MenusSelfChildrensModule } from './resources/childrens/menu-self-children/menu-self-childrens.module';
+import { MinioClientModule } from './core/minio/modules/minio-client.module';
+import { FileUploadModule } from './resources/file-upload/file-upload.module';
 
 @Module({
   imports: [
@@ -17,7 +19,9 @@ import { MenusSelfChildrensModule } from './resources/childrens/menu-self-childr
     AuthModule,
     CategoryModule,
     MenusModule,
-    MenusSelfChildrensModule
+    MenusSelfChildrensModule,
+    MinioClientModule, 
+    FileUploadModule
   ],
   controllers: [AppController],
   providers: [AppService],

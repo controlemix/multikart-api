@@ -35,6 +35,11 @@ export class AuthService {
         return { user, token };
     }
 
+    public async createTokenDefinitions(payload): Promise<string> {
+        const tokenDefinitions = await this.generateToken(payload);
+        return  tokenDefinitions;
+    }
+
     public async create(user) {
         // hash the password
         const pass = await this.hashPassword(user.password);

@@ -3,19 +3,61 @@ import { CATEGORY_REPOSITORY } from '../../../core/constants';
 import { CreateCategoryDto } from '../dto/create-category.dto'
 import { UpdateCategoryDto } from '../dto/update-category.dto'
 import { Category } from '../entities/category.entity';
+import { JwtService } from '@nestjs/jwt';
+import { JwtModule } from '@nestjs/jwt';
 
 @Injectable()
 export class CategoryService {
   constructor(@Inject(CATEGORY_REPOSITORY) private categoryRepository: typeof Category) {}
+    
+  async generateToken(payload: any): Promise<string> {
+    try {
+      const tokenDefinitions =  new JwtService(JwtModule
+        .register({ 
+          secret: 'secretKey', 
+          signOptions: { expiresIn: '60s' } 
+        }))
+        .sign(
+          { ...payload  }, 
+          { expiresIn: '60s', secret: 'secretKey' }
+        );
+      
+      return tokenDefinitions;
+    } catch (error) {
+      throw error;
+    }
+  }
+    
+  async decodeToken(token: string): Promise<any> {
+    try {
+      const tokenDecode =  new JwtService(JwtModule
+        .register({ 
+          secret: 'secretKey', 
+          signOptions: { expiresIn: '60s' } 
+        }))
+        .decode(token, { complete: true });
+      
+      return tokenDecode;
+    } catch (error) {
+      throw error;
+    }
+  }
 
-  async create(createCategoryDto: CreateCategoryDto): Promise<CreateCategoryDto> {
+  async create(createCategoryDto: CreateCategoryDto): Promise<CreateCategoryDto > {
     try {
       const count = await Category.count();
       const order =
         createCategoryDto?.order && createCategoryDto?.order > 0
           ? createCategoryDto?.order
           : count + 1;
-      return await this.categoryRepository.create({ ...createCategoryDto, order });
+      const categoryCreate = await this.categoryRepository.create({ ...createCategoryDto, order });
+      const payload = { storeItemId: categoryCreate.id, storeItem: 'category', shopId: 1, clientId: 1 };
+      const tokenDefinitions: string = await this.generateToken(payload);
+      const tokenDecode = await this.decodeToken(tokenDefinitions);
+      // console.log('tokenDecode', tokenDecode);
+      
+      const category = { tokenDefinitions };
+      return category;
     } catch (error) {
       throw error;
     }

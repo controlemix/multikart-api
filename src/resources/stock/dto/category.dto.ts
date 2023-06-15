@@ -31,4 +31,5 @@ export class CategoryDto implements ICategoryDtoAttributes {
   isActive?: boolean;  
   order?: number;
   ranking?: number;
+  tokenDefinitions?: string;
 }
