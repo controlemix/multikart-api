@@ -3,6 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { CategoryDto } from "../dto/category.dto";
 import { ICategoryDtoAttributes } from "../interfaces/category.interface";
+import { CategoryImage } from "./category.image.entity";
 
 
 @Table({ tableName: "category", timestamps: true })
@@ -122,5 +123,14 @@ export class Category extends Model<CategoryDto, CategoryDto> implements ICatego
     @Column({ allowNull: false, type: DataType.INTEGER })
     @ApiProperty({ example: 'resume of category', description: 'Parent id' })
     ranking: number;
+
+    @HasMany(() => CategoryImage)
+    categoryImages: CategoryImage[];
+
+    
+
+
+   
+
     
 }

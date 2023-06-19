@@ -5,7 +5,9 @@ import { User } from "../../resources/users/user.entity";
 import { Category } from "../../resources/stock/entities/category.entity";
 import { Menu } from "../../resources/menus/entities/menu.entity";
 import { MenuChildren } from "../../resources/menus/entities/menu-children.entity";
-import { MenuSelfChildren } from "src/resources/childrens/menu-self-children/entities/menu-self-childrens.entity";
+import { MenuSelfChildren } from "../../resources/childrens/menu-self-children/entities/menu-self-childrens.entity";
+import { Medias } from "../../resources/medias/entities/medias.entity";
+import { CategoryImage } from "../../resources/stock/entities/category.image.entity";
 
 export const databaseProviders = [
   {
@@ -42,7 +44,7 @@ export const databaseProviders = [
         }
       }
       const sequelize = new Sequelize(config);
-      sequelize.addModels([User, Category, Menu, MenuChildren, MenuSelfChildren]);
+      sequelize.addModels([User, Category, Menu, MenuChildren, MenuSelfChildren, Medias, CategoryImage]);
       await sequelize.sync();
       return sequelize;
     }

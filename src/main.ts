@@ -13,6 +13,7 @@ async function bootstrap() {
     .setVersion("1.0.2-alpha")
     .addTag("users", "Users")
     .addTag("category", "Category")
+    .addTag("medias", "Medias")
     .addTag("menus", "Menu")
     .addTag("menu-childrens", "Children in Menu or Sub Menu")
     .addTag("menu-self-childrens", "Children in Menu or Sub Menu")

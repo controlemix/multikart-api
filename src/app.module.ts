@@ -10,6 +10,7 @@ import { MenusModule } from './resources/menus/menus.module';
 import { MenusSelfChildrensModule } from './resources/childrens/menu-self-children/menu-self-childrens.module';
 import { MinioClientModule } from './core/minio/modules/minio-client.module';
 import { FileUploadModule } from './resources/file-upload/file-upload.module';
+import { MediasModule } from './resources/medias/modules/medias.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { FileUploadModule } from './resources/file-upload/file-upload.module';
     MenusModule,
     MenusSelfChildrensModule,
     MinioClientModule, 
-    FileUploadModule
+    FileUploadModule,
+    MediasModule
   ],
   controllers: [AppController],
   providers: [AppService],
