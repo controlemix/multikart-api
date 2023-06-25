@@ -20,6 +20,7 @@
     "test:e2e": "cross-env NODE_ENV=test echo 'No e2e tests implemented yet.'"
   },
   "dependencies": {
+    "@ndeitch/nestjs-keycloak": "^1.2.3",
     "@nestjs/common": "9.4.2",
     "@nestjs/config": "2.3.2",
     "@nestjs/core": "9.4.2",
@@ -35,7 +36,9 @@
     "dotenv": "16.0.3",
     "firebase": "^9.22.1",
     "firebase-admin": "^11.8.0",
+    "keycloak-connect": "^21.1.1",
     "mysql2": "^3.3.2",
+    "nest-keycloak-connect": "^1.9.1",
     "nestjs-minio-client": "^2.0.0",
     "passport": "0.6.0",
     "passport-jwt": "4.0.1",

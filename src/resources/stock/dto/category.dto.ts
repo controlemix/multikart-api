@@ -9,6 +9,7 @@ export class CategoryDto implements ICategoryDtoAttributes {
   tags?: string;
   metaDescription?: string;
   imgDefaultUrl?: string;
+  imgDefaultId?: string;
   imgLargeLightUrl?: string;
   imgMediumLightUrl?: string;
   imgSmallLightUrl?: string;
@@ -29,7 +30,11 @@ export class CategoryDto implements ICategoryDtoAttributes {
   shopPrimaryId?: number;
   multiShopId?: number;
   isActive?: boolean;  
+  rotate?: boolean;  
   order?: number;
   ranking?: number;
   tokenDefinitions?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  tokenStoreItem?: string;
 }

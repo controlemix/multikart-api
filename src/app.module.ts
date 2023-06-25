@@ -1,4 +1,12 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
+import {
+  AuthGuard,
+  KeycloakConnectModule,
+  ResourceGuard,
+  RoleGuard,
+} from 'nest-keycloak-connect';
+
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -11,24 +19,44 @@ import { MenusSelfChildrensModule } from './resources/childrens/menu-self-childr
 import { MinioClientModule } from './core/minio/modules/minio-client.module';
 import { FileUploadModule } from './resources/file-upload/file-upload.module';
 import { MediasModule } from './resources/medias/modules/medias.module';
+import { KeycloakModule } from './core/keycloak/keycloak.module';
+import { KeycloakService } from './core/keycloak/keycloak.service';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
+    KeycloakConnectModule.registerAsync({
+      useExisting: KeycloakService,
+      imports: [KeycloakModule],
+    }),
     DatabaseModule,
     UsersModule,
     AuthModule,
     CategoryModule,
     MenusModule,
     MenusSelfChildrensModule,
-    MinioClientModule, 
+    MinioClientModule,
     FileUploadModule,
-    MediasModule
+    MediasModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: ResourceGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RoleGuard,
+    },
+
+
+  ],
 })
 export class AppModule {}
-
-
-

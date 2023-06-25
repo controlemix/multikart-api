@@ -1,0 +1,46 @@
+version: '3'
+
+volumes:
+  postgres_data:
+    driver: local
+
+services:
+  postgres:
+    container_name: postgres-keycloak-auth
+    image: postgres:latest
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+  keycloak-auth:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak-auth
+    build:
+      context: .
+      dockerfile: Dockerfile   
+    environment:
+      KC_HEALTH_ENABLED: true
+      KC_METRICS_ENABLED: true
+      KC_FEATURES: account-api,account2,account3,admin-api,admin-fine-grained-authz,admin2,authorization,ciba,client-policies,client-secret-rotation,declarative-user-profile,docker,dynamic-scopes,impersonation,js-adapter,preview,recovery-codes,scripts,step-up-authentication,token-exchange,update-email,web-authn"
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres/keycloak
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: postgres
+      KC_DB_SCHEMA: public
+      KC_HOSTNAME_PATH: /auth
+      KC_HTTP_RELATIVE_PATH: /auth
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HOSTNAME: localhost      
+    entrypoint: ["/opt/keycloak/bin/kc.sh", "start-dev"]
+    ports:
+      - 8082:8080
+      - 443:8443
+    depends_on:
+      - postgres
+
+
+

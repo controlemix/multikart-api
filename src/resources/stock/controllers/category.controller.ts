@@ -1,11 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Response, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Response, Put, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags, ApiParam, ApiBody } from "@nestjs/swagger";
 import { CategoryService } from '../services/category.service';
 import { CreateCategoryDto } from '../dto/create-category.dto'
 import { UpdateCategoryDto } from '../dto/update-category.dto'
 import { Category } from '../entities/category.entity';
-
-
+import {
+  AuthenticatedUser,
+  Public,
+  Roles,
+  RoleMatchingMode,
+  Resource,
+} from 'nest-keycloak-connect';
 
 @ApiTags("category")
 @Controller('category')
@@ -40,6 +45,8 @@ export class CategoryController {
     }
   }
 
+  // @Public(false)
+  // @Roles({ roles: ['admin'], mode: RoleMatchingMode.ALL })
   @Get()
   async findAll(@Response() res: any): Promise<Category[]> {
     try {
@@ -86,6 +93,7 @@ export class CategoryController {
     }
   }
 
+  // @Roles({ roles: ['realm:basic'] })
   @Get(':id')
   async findOne(@Param('id') id: string, @Response() res: any) {
     try {

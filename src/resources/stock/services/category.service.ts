@@ -52,11 +52,23 @@ export class CategoryService {
           : count + 1;
       const categoryCreate = await this.categoryRepository.create({ ...createCategoryDto, order });
       const payload = { storeItemId: categoryCreate.id, storeItem: 'category', shopId: 1, clientId: 1 };
-      const tokenDefinitions: string = await this.generateToken(payload);
-      const tokenDecode = await this.decodeToken(tokenDefinitions);
+      const tokenStoreItem: string = await this.generateToken(payload);
+      const tokenDecode = await this.decodeToken(tokenStoreItem);
       // console.log('tokenDecode', tokenDecode);
       
-      const category = { tokenDefinitions };
+      const category: CreateCategoryDto = { 
+        id: categoryCreate.dataValues.id,
+        title: categoryCreate.dataValues.title,         
+        description: categoryCreate.dataValues.description,
+        isActive: categoryCreate.dataValues.isActive,
+        order: categoryCreate.dataValues.order,
+        ranking: categoryCreate.dataValues.ranking,
+        shortDescription: categoryCreate.dataValues.shortDescription,
+        tags: categoryCreate.dataValues.tags,
+        createdAt: categoryCreate.dataValues.createdAt,
+        updatedAt: categoryCreate.dataValues.updatedAt,        
+        tokenStoreItem
+      };
       return category;
     } catch (error) {
       throw error;
