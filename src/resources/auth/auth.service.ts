@@ -30,9 +30,14 @@ export class AuthService {
         return result;
     }
 
-    public async login(user) {
+    public async login(user: any) {
+        
         const token = await this.generateToken(user);
         return { user, token };
+    }
+
+    public async createAppToken(payload: any) {        
+        return await this.generateAppToken(payload);
     }
 
     public async createTokenDefinitions(payload): Promise<string> {
@@ -60,6 +65,9 @@ export class AuthService {
     private async generateToken(user) {
         const token = await this.jwtService.signAsync(user);
         return token;
+    }
+    private async generateAppToken(data: any) {
+       return this.jwtService.signAsync(data);
     }
 
     private async hashPassword(password) {

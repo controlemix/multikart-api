@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import {
-  AuthGuard,
-  KeycloakConnectModule,
+  AuthGuard, KeycloakConnectModule,
   ResourceGuard,
-  RoleGuard,
+  RoleGuard
 } from 'nest-keycloak-connect';
+// nestjs-keycloak
 
-import { ConfigModule } from '@nestjs/config';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseModule } from './core/database/database.module';
@@ -19,16 +19,76 @@ import { MenusSelfChildrensModule } from './resources/childrens/menu-self-childr
 import { MinioClientModule } from './core/minio/modules/minio-client.module';
 import { FileUploadModule } from './resources/file-upload/file-upload.module';
 import { MediasModule } from './resources/medias/modules/medias.module';
-import { KeycloakModule } from './core/keycloak/keycloak.module';
-import { KeycloakService } from './core/keycloak/keycloak.service';
+import { KeycloakGuard, KeycloakModule } from './keycloak';
+import { ConfigModule } from './decorator/config/config.module';
+import { KeycloakConfigService } from './decorator/config/keycloak-config.service';
+
+// import { KeycloakModule } from './core/keycloak/keycloak.module';
+// import { KeycloakService } from './core/keycloak/keycloak.service';
+
+
+
+// @Module({
+//   imports: [
+//     KeycloakConnectModule.registerAsync({
+//       useExisting: KeycloakConfigService,
+//       imports: [ConfigModule]
+//     }),
+//     KeycloakModule,
+//     DatabaseModule,
+//     UsersModule,
+//     AuthModule,
+//     CategoryModule,
+//     MenusModule,
+//     MenusSelfChildrensModule,
+//     MinioClientModule,
+//     FileUploadModule,
+//     MediasModule,
+//   ],  
+//   controllers: [AppController],
+//   providers: [
+//     AppService,
+//     {
+//       provide: APP_GUARD,
+//       useClass: AuthGuard 
+//     },
+//     {
+//       provide: APP_GUARD,
+//       useClass: KeycloakGuard,
+//     },
+//     {
+//       provide: APP_GUARD,
+//       useClass: KeycloakGuard,
+//     },
+//   ],
+//   // providers: [
+//   //   AppService,
+
+//   //   {
+//   //     provide: APP_GUARD,
+//   //     useClass: AuthGuard,
+//   //   },
+//   //   {
+//   //     provide: APP_GUARD,
+//   //     useClass: ResourceGuard,
+//   //   },
+//   //   {
+//   //     provide: APP_GUARD,
+//   //     useClass: RoleGuard,
+//   //   },
+
+
+//   // ],
+// })
+
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
-    KeycloakConnectModule.registerAsync({
-      useExisting: KeycloakService,
-      imports: [KeycloakModule],
-    }),
+    // KeycloakConnectModule.registerAsync({
+    //   useExisting: KeycloakConfigService,
+    //   imports: [ConfigModule]
+    // }),
+    // KeycloakModule,
     DatabaseModule,
     UsersModule,
     AuthModule,
@@ -39,24 +99,23 @@ import { KeycloakService } from './core/keycloak/keycloak.service';
     FileUploadModule,
     MediasModule,
   ],
-  controllers: [AppController],
   providers: [
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: AuthGuard,
+    // },
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: ResourceGuard,
+    // },
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: RoleGuard,
+    // },
     AppService,
-
-    {
-      provide: APP_GUARD,
-      useClass: AuthGuard,
-    },
-    {
-      provide: APP_GUARD,
-      useClass: ResourceGuard,
-    },
-    {
-      provide: APP_GUARD,
-      useClass: RoleGuard,
-    },
-
-
   ],
+  controllers: [AppController],
 })
 export class AppModule {}
+
+

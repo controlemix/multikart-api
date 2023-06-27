@@ -75,8 +75,15 @@ export class CategoryService {
     }
   }
 
-  async findAll(): Promise<any[]> {
+  async findAll(req?: any): Promise<any[]> {
     try {
+      if(req ) {
+        console.log('----------- ------------------');
+        const tokenDecode = await this.decodeToken(req.headers['authorization-app']);
+        console.log('tokenDecode --------', tokenDecode.payload);
+        console.log('----------- ------------------');
+        
+      }
       const categories = await Category.findAll({ 
         where: {
           isActive: true

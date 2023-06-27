@@ -1,16 +1,39 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Response, Put, UseGuards } from '@nestjs/common';
+// import { Controller, Get, Post, Body, Patch, Param, Delete, Response, Put, UseGuards } from '@nestjs/common';
+// import { Resource, Roles, Scopes, Public, RoleMatchingMode } from 'nest-keycloak-connect';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags, ApiParam, ApiBody } from "@nestjs/swagger";
 import { CategoryService } from '../services/category.service';
 import { CreateCategoryDto } from '../dto/create-category.dto'
 import { UpdateCategoryDto } from '../dto/update-category.dto'
 import { Category } from '../entities/category.entity';
+import { Public, Resource, RoleMatchingMode, Roles, Scopes, Unprotected } from 'nest-keycloak-connect';
+import { KeycloakModule } from "src/keycloak";
+import { HasRole, HasScope, Protected } from '../../../decorator'
+import { KeycloakGuard } from '../../../decorator/guard'
+
+
 import {
-  AuthenticatedUser,
-  Public,
-  Roles,
-  RoleMatchingMode,
-  Resource,
-} from 'nest-keycloak-connect';
+  Module,
+  UseGuards,
+  Response,
+  Request,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
+
+// import {
+//   AuthenticatedUser,
+//   Public,
+//   Roles,
+  
+//   RoleMatchingMode,
+//   Resource,
+// } from 'nest-keycloak-connect';
+
 
 @ApiTags("category")
 @Controller('category')
@@ -47,10 +70,14 @@ export class CategoryController {
 
   // @Public(false)
   // @Roles({ roles: ['admin'], mode: RoleMatchingMode.ALL })
+  // @Protected()
+  // @HasRole('gerente')
   @Get()
-  async findAll(@Response() res: any): Promise<Category[]> {
+  // @HasScope({ resourceId: 'gestor' })
+  @HasRole(['gerente'])
+  async findAll(@Response() res: any, @Request() req: any): Promise<Category[]> {
     try {
-      const category = await this.categoryService.findAll( );
+      const category = await this.categoryService.findAll(req);
       return res.status(200).json({
         statusCode: 200,
         status: "OK",
