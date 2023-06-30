@@ -1,9 +1,10 @@
-import { Model, Table, Column, DataType, Index, Sequelize, ForeignKey, HasMany, BelongsTo } from "sequelize-typescript";
+import { Model, Table, Column, DataType, Index, Sequelize, ForeignKey, HasMany, BelongsTo, BelongsToMany } from "sequelize-typescript";
 import { ApiProperty } from '@nestjs/swagger';
 
 import { CategoryDto } from "../dto/category.dto";
 import { ICategoryDtoAttributes } from "../interfaces/category.interface";
 import { CategoryImage } from "./category.image.entity";
+import { Medias } from "src/resources/medias/entities/medias.entity";
 
 
 @Table({ tableName: "category", timestamps: true })
@@ -124,13 +125,167 @@ export class Category extends Model<CategoryDto, CategoryDto> implements ICatego
     @ApiProperty({ example: 'resume of category', description: 'Parent id' })
     ranking: number;
 
-    @HasMany(() => CategoryImage)
-    categoryImages: CategoryImage[];
+    @Column({ allowNull: false, type: DataType.STRING })
+    @ApiProperty({ example: 'Shoes', description: 'Title for category' })
+    categoryName: string;
 
-    
+  @Column({ allowNull: true, type: DataType.STRING })
+  @ApiProperty({ example: 'Shoes', description: 'Title for category' })
+  multiShop: string;
+
+  @Column({ allowNull: true, type: DataType.STRING })
+  @ApiProperty({ example: 'Shoes', description: 'Title for category' })
+  badge: string;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  isRotate: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  isFeatured: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  isPopular: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  isSpecial: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  isTrending: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  isRecommended: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  isTopSelling: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  isTopRated: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  isFlashSale: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  isDiscounted: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  isFreeShipping: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  isExclusive: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  isOnlyAtTag: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  isBuyOneGetOne: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  isComingSoon: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  isLimited: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  isOutOfStock: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  isSoldOut: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  isDraft: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  isPublished: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  isDeleted: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  isBanned: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  isArchived: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  isHidden: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  isPrivate: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  isVatIncluded: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  isVatExcluded: boolean;
+
+  @Column({ allowNull: true, type: DataType.BOOLEAN })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  isVatFree: boolean;
+  
+  @Column({ allowNull: true, type: DataType.INTEGER })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  userCreatedId: number;
+
+  @Column({ allowNull: true, type: DataType.INTEGER })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  userUpdatedId: number;
+
+  @Column({ allowNull: true, type: DataType.DATE })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  activateStartAt: Date;
+
+  @Column({ allowNull: true, type: DataType.DATE })
+  @ApiProperty({ example: 'resume of category', description: 'Active' })
+  activateEndAt: Date;
+
+  @Column({ allowNull: true, type: DataType.STRING })
+  @ApiProperty({ example: 'Shoes', description: 'Title for category' })
+  customerGroupInclude: string;
+
+  @Column({ allowNull: true, type: DataType.STRING })
+  @ApiProperty({ example: 'Shoes', description: 'Title for category' })
+  customerGroupExclude: string;
+
+  @BelongsToMany(() => Medias,{ through: () => CategoryImage })
+  medias: Medias[];
+
+  // @HasMany(() => CategoryImage)
+  // images: CategoryImage[];
+
+  // @HasMany(() => Medias )
+  // medias: Medias[];
 
 
-   
 
+  
+
+  
     
 }

@@ -20,6 +20,7 @@ export class FileUploadService {
     const uploaded_image = await this.minioClientService.uploadCategory(image, req)
 
     return {
+      ...uploaded_image,
       imageUrl: uploaded_image.url,
       fileName: uploaded_image.fileName
     }

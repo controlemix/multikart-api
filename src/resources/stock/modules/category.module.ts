@@ -17,6 +17,10 @@ import { AuthModule } from 'src/resources/auth/auth.module';
 import { KeycloakConfigService } from 'src/decorator/config/keycloak-config.service';
 import { ConfigModule } from 'src/decorator/config/config.module';
 import { KeycloakModule } from 'src/keycloak';
+import { CategoryImageService } from '../services/category.image.service';
+import { categoryImageProviders } from '../providers/category.image.provider';
+
+export class MediasModule {}
 
 @Module({
   imports: [
@@ -26,7 +30,7 @@ import { KeycloakModule } from 'src/keycloak';
     }),
     KeycloakModule,
     DatabaseModule,
-    AuthModule
+    AuthModule,
   ],
   providers: [
     {
@@ -41,17 +45,11 @@ import { KeycloakModule } from 'src/keycloak';
       provide: APP_GUARD,
       useClass: RoleGuard,
     },
-    CategoryService, ...categoryProviders, AuthService, ...authProviders, JwtService 
-
+    CategoryService, ...categoryProviders, AuthService, ...authProviders, JwtService,
+    CategoryImageService, ...categoryImageProviders
   ],
   controllers: [CategoryController],
 })
 export class CategoryModule { }
 
 
-// @Module({
-//   imports: [DatabaseModule],
-//   controllers: [CategoryController],
-//   providers: [CategoryService, ...categoryProviders, AuthService, ...authProviders, JwtService ],
-// })
-// export class CategoryModule {}

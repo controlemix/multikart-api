@@ -22,7 +22,7 @@ export class FileUploadController {
   ) {
 
     try {
-      // console.log('image', files);
+      console.log('image', files);
       const image = files['image'][0]
       // const storeItem = files['storeItem'][0]
       // console.log('image', image);

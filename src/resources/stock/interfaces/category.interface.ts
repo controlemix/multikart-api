@@ -30,4 +30,5 @@ export interface ICategoryDtoAttributes {
   isActive?: boolean;  
   order?: number;
   ranking?: number;
+  images?: any[];
 }

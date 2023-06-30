@@ -5,6 +5,8 @@ import { UpdateCategoryDto } from '../dto/update-category.dto'
 import { Category } from '../entities/category.entity';
 import { JwtService } from '@nestjs/jwt';
 import { JwtModule } from '@nestjs/jwt';
+import { Medias } from 'src/resources/medias/entities/medias.entity';
+import { CategoryImage } from '../entities/category.image.entity';
 
 @Injectable()
 export class CategoryService {
@@ -58,15 +60,7 @@ export class CategoryService {
       
       const category: CreateCategoryDto = { 
         id: categoryCreate.dataValues.id,
-        title: categoryCreate.dataValues.title,         
-        description: categoryCreate.dataValues.description,
-        isActive: categoryCreate.dataValues.isActive,
-        order: categoryCreate.dataValues.order,
-        ranking: categoryCreate.dataValues.ranking,
-        shortDescription: categoryCreate.dataValues.shortDescription,
-        tags: categoryCreate.dataValues.tags,
-        createdAt: categoryCreate.dataValues.createdAt,
-        updatedAt: categoryCreate.dataValues.updatedAt,        
+        ...categoryCreate.dataValues,        
         tokenStoreItem
       };
       return category;
@@ -77,21 +71,39 @@ export class CategoryService {
 
   async findAll(req?: any): Promise<any[]> {
     try {
-      if(req ) {
+      if (req) {
         console.log('----------- ------------------');
-        const tokenDecode = await this.decodeToken(req.headers['authorization-app']);
+        const tokenDecode = await this.decodeToken(
+          req.headers['authorization-app'],
+        );
         console.log('tokenDecode --------', tokenDecode.payload);
         console.log('----------- ------------------');
-        
       }
-      const categories = await Category.findAll({ 
-        where: {
-          isActive: true
-        },   
-        order: [
-          ['order', 'ASC'],
+      // const categories = await Category.findAll({ include: Medias });
+      const categories = await Category.findAll({
+        include: [
+          {
+            model: Medias,
+            as: 'medias',
+            // attributes: [ 'isActive'],
+            // through: {
+            //   attributes: ['isActive'],
+            //   where: {
+            //     isActive: true,
+            //   },
+            // },
+            // where: {
+            //   isActive: false,
+            // },
+          },
         ],
+
+        // where: {
+        //   isActive: true
+        // },
+        order: [['order', 'ASC']],
       });
+
       return categories;
     } catch (error) {
       throw error;

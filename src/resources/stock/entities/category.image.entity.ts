@@ -15,20 +15,50 @@ export class CategoryImage extends Model<CategoryImageDto, CategoryImageDto> imp
 
     @ForeignKey(() => Category)
     @Column({ allowNull: false, type: DataType.INTEGER })
-    categoryId: number;
+    categoriesId: number;
 
     @ForeignKey(() => Medias)
     @Column({ allowNull: false, type: DataType.INTEGER })
-    mediaId: number;
+    mediasId: number;
 
-    @BelongsTo(() => Category)
-    category: Category;
+    @Column({ allowNull: true, type: DataType.INTEGER })
+    order: number;
 
-    @BelongsTo(() => Medias)
-    media: Medias[];
+    @Column({ allowNull: true, type: DataType.INTEGER })
+    ranking: number;
+
+    @Column({ allowNull: true, type: DataType.BOOLEAN, defaultValue: true })
+    isActive: boolean;
+
+    @Column({ allowNull: true, type: DataType.BOOLEAN })
+    isRotate: boolean;
+
+    @Column({ allowNull: true, type: DataType.BOOLEAN })
+    isDefault: boolean;
+
+    @Column({ allowNull: true, type: DataType.DATE })
+    activateStartAt: Date;
+
+    @Column({ allowNull: true, type: DataType.DATE })
+    activateEndAt: Date;
+
+    @Column({ allowNull: true, type: DataType.DATE })
+    createdAt: Date;
+
+    @Column({ allowNull: true, type: DataType.DATE })
+    updatedAt: Date;
 
 
 
+
+    // @BelongsTo(() => Category, 'id' ) 
+    // category: Category;
+
+
+    // @HasMany(() => Medias, 'id' )
+    // medias: Medias[];
+
+    
 
 
     

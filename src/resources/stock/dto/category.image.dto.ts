@@ -3,6 +3,15 @@ import { ICategoryImageDtoAttributes } from '../interfaces/category.image.interf
 
 export class CategoryImageDto implements ICategoryImageDtoAttributes {
   id?: number;
-  categoryId: number;
-  mediaId: number;
+  categoriesId: number;
+  mediasId: number;
+  order?: number;
+  ranking?: number;
+  isActive: boolean;
+  isRotate?: boolean;
+  isDefault?: boolean;
+  activateStartAt?: Date;
+  activateEndAt?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

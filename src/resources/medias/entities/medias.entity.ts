@@ -1,8 +1,10 @@
-import { Model, Table, Column, DataType, Index, Sequelize, ForeignKey, HasMany, BelongsTo } from "sequelize-typescript";
+import { Model, Table, Column, DataType, Index, Sequelize, ForeignKey, HasMany, BelongsTo, BelongsToMany } from "sequelize-typescript";
 import { ApiProperty } from '@nestjs/swagger';
 
 import { MediasDto } from "../dto/medias.dto";
 import { IMediasDtoAttributes } from "../interfaces/medias.interface";
+import { CategoryImage } from "src/resources/stock/entities/category.image.entity";
+import { Category } from "src/resources/stock/entities/category.entity";
 
 @Table({ tableName: "medias", timestamps: true })
 export class Medias extends Model<MediasDto, MediasDto> implements IMediasDtoAttributes {
@@ -34,6 +36,7 @@ export class Medias extends Model<MediasDto, MediasDto> implements IMediasDtoAtt
     @ApiProperty({ example: 'Shoes', description: 'Item Store for Media' })
     itemStore: string;
 
+    @ForeignKey(() => Category)
     @Column({ allowNull: false, type: DataType.INTEGER })
     @ApiProperty({ example: 'Shoes', description: 'Item Id for Media' })
     itemId: number;
@@ -121,6 +124,14 @@ export class Medias extends Model<MediasDto, MediasDto> implements IMediasDtoAtt
     @Column({ allowNull: true, type: DataType.STRING })
     @ApiProperty({ example: 'Shoes', description: 'Meta Description for Media' })
     metaDescription?: string;
+
+    @BelongsToMany(() => Category,{ through: () => CategoryImage })
+    categories: Category[];
+  
+    // categories: Category[];
+    // @BelongsTo(() => Category, 'itemId')
+    // categoryId: Category[];
+    
 
     
 
