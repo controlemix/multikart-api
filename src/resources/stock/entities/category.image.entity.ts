@@ -14,38 +14,38 @@ export class CategoryImage extends Model<CategoryImageDto, CategoryImageDto> imp
     id!: number;
 
     @ForeignKey(() => Category)
-    @Column({ allowNull: false, type: DataType.INTEGER })
+    @Column({ allowNull: false, type: DataType.INTEGER, defaultValue: 0 })
     categoriesId: number;
 
     @ForeignKey(() => Medias)
-    @Column({ allowNull: false, type: DataType.INTEGER })
+    @Column({ allowNull: false, type: DataType.INTEGER, defaultValue: 0 })
     mediasId: number;
 
-    @Column({ allowNull: true, type: DataType.INTEGER })
+    @Column({ allowNull: true, type: DataType.INTEGER, defaultValue: 0 })
     order: number;
 
-    @Column({ allowNull: true, type: DataType.INTEGER })
+    @Column({ allowNull: true, type: DataType.INTEGER, defaultValue: 0 })
     ranking: number;
 
     @Column({ allowNull: true, type: DataType.BOOLEAN, defaultValue: true })
     isActive: boolean;
 
-    @Column({ allowNull: true, type: DataType.BOOLEAN })
+    @Column({ allowNull: true, type: DataType.BOOLEAN, defaultValue: false })
     isRotate: boolean;
 
-    @Column({ allowNull: true, type: DataType.BOOLEAN })
+    @Column({ allowNull: true, type: DataType.BOOLEAN, defaultValue: true })
     isDefault: boolean;
 
-    @Column({ allowNull: true, type: DataType.DATE })
+    @Column({ allowNull: true, type: DataType.DATE, defaultValue: 0 })
     activateStartAt: Date;
 
-    @Column({ allowNull: true, type: DataType.DATE })
+    @Column({ allowNull: true, type: DataType.DATE, defaultValue: 0 })
     activateEndAt: Date;
 
-    @Column({ allowNull: true, type: DataType.DATE })
+    @Column({ allowNull: true, type: DataType.DATE, defaultValue: 0 })
     createdAt: Date;
 
-    @Column({ allowNull: true, type: DataType.DATE })
+    @Column({ allowNull: true, type: DataType.DATE, defaultValue: 0 })
     updatedAt: Date;
 
 

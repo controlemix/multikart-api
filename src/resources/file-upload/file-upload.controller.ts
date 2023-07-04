@@ -22,13 +22,15 @@ export class FileUploadController {
   ) {
 
     try {
-      console.log('image', files);
+      // console.log('image', files);
       const image = files['image'][0]
       // const storeItem = files['storeItem'][0]
       // console.log('image', image);
       // console.log('body', storeItem);
       
       const uploaded_image = await this.fileUploadService.uploadCategorySingle(image, req)
+      console.log('uploaded_image', uploaded_image);
+      
       return res.status(201).json({
         statusCode: 201,
         status: "OK",
