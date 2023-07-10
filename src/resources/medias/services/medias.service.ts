@@ -85,11 +85,7 @@ export class MediasService {
 
   async findOne(id: string): Promise<Medias> {
     try {
-      return await this.mediasRepository.findOne({
-        where: {
-          id,
-        },
-      });
+      return  this.mediasRepository.findOne({ where: { id } });
     } catch (error) {
       throw error;
     }

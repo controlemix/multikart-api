@@ -25,6 +25,16 @@ export class FileUploadService {
       fileName: uploaded_image.fileName
     }
   }
+  async uploadCategorySingleUpdate(id: string, image: any, req: any) {
+    
+    const uploaded_image = await this.minioClientService.uploadCategoryUpdate(id, image, req)
+
+    return {
+      ...uploaded_image,
+      imageUrl: uploaded_image.url,
+      fileName: uploaded_image.fileName
+    }
+  }
 
   async uploadMany(files: BufferedFile) {
     

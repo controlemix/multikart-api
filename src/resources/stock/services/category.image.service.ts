@@ -25,6 +25,19 @@ export class CategoryImageService {
       throw error;
     }
   }
+  async update(updateCategoryImageDto: UpdateCategoryImageDto): Promise<UpdateCategoryImageDto> {
+    try {
+      // const count = await CategoryImage.count();
+      // const order =
+      // createCategoryImageDto?.order && createCategoryImageDto?.order > 0
+      //     ? createCategoryImageDto?.order
+      //     : count + 1;
+      const media =  await this.categoryImageRepository.update({ ...updateCategoryImageDto }, { where: { id: updateCategoryImageDto.id } });
+      return media[0] ? { ...updateCategoryImageDto } : null;
+    } catch (error) {
+      throw error;
+    }
+  }
 
   // async findAll(): Promise<any[]> {
   //   try {
